@@ -46,7 +46,7 @@ public class Bibliotheca extends NookActivity
 	public static final String TITLE = "Bibliotheca";
 	
     public static final String SDFOLDER = "/system/media/sdcard/"+MYLIBRARY;
-    public static final String EXTERNAL_SDFOLDER = "/sdcard/"+MYLIBRARY;
+    public static final String EXTERNAL_SDFOLDER = "/sdcard";
 
 
 
