@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+  <FrameLayout
+    android:id="@+id/eink"
+   	android:layout_width="584.0px"
+   	android:layout_height="752.0px"
+   	android:layout_marginLeft="8px"
+   	android:layout_marginRight="8px"
+   	android:layout_marginBottom="8px"
+    android:background="@android:color/white">
+  
+  	
+  <LinearLayout 
+      android:id="@+id/einklayout"
+      android:orientation="vertical" 
+      android:layout_width="fill_parent" 
+      android:layout_height="fill_parent" 
+		/> 
+  		
+  	
+
+  	
+  	
+	
+
+
+</FrameLayout>
+
+
+
+
+
+
+
+
+
+
+    <FrameLayout
+      	android:id="@+id/lcd"
+      	android:layout_width="480.0px"
+      	android:layout_height="144.0px"
+      	android:background="@android:color/black">
+	
+	<LinearLayout 
+		android:id="@+id/lcdlayout"
+	    android:orientation="vertical" 
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"
+	    >
+		
+
+	<LinearLayout 
+		android:id="@+id/Line1"
+	    android:orientation="horizontal" 
+	    android:layout_width="wrap_content" 
+	    android:layout_height="60px"	    
+	    >
+		
+	
+			<Button 
+				android:text="0" 
+			    android:id="@+id/Button0" 
+			    android:layout_width="48px" 
+			    android:layout_height="wrap_content"
+			    android:textSize = "25px"
+			    >
+			    </Button>
+			<Button 
+				android:textSize = "25px"
+			    android:layout_width="48px" 			
+				android:text="1" 
+			    android:id="@+id/Button1" 
+			    android:layout_height="wrap_content">
+			    </Button>
+			<Button
+				android:textSize = "25px" 
+			    android:layout_width="48px" 			
+				android:text="2" 
+			    android:id="@+id/Button2" 
+			    android:layout_height="wrap_content">
+			    </Button>	
+			<Button 
+				android:textSize = "25px"
+			    android:layout_width="48px" 			
+				android:text="3" 
+			    android:id="@+id/Button3" 
+			    android:layout_height="wrap_content">
+			    </Button>	    
+			<Button 
+				android:textSize = "25px"
+			    android:layout_width="48px" 			
+				android:text="4" 
+			    android:id="@+id/Button4" 
+			    android:layout_height="wrap_content">
+			    </Button>	        	
+			<Button 
+				android:textSize = "25px"
+			    android:layout_width="48px" 			
+				android:text="5" 
+			    android:id="@+id/Button5" 
+			    android:layout_height="wrap_content">
+			    </Button>
+			<Button 
+				android:textSize = "25px"
+			    android:layout_width="48px" 			
+				android:text="6" 
+			    android:id="@+id/Button6" 
+			    android:layout_height="wrap_content">
+			    </Button>
+			<Button 
+				android:textSize = "25px"
+			    android:layout_width="48px" 			
+				android:text="7" 
+			    android:id="@+id/Button7" 
+			    android:layout_height="wrap_content">
+			    </Button>
+			<Button 
+				android:textSize = "25px"
+			    android:layout_width="48px" 			
+				android:text="8" 
+			    android:id="@+id/Button8" 
+			    android:layout_height="wrap_content">
+			    </Button>
+			<Button 
+				android:textSize = "25px"
+			    android:layout_width="48px" 			
+				android:text="9" 
+			    android:id="@+id/Button9" 
+			    android:layout_height="wrap_content">
+			    </Button>
+			    	    
+			    
+		  </LinearLayout>      	
+      
+   
+    
+    
+    
+    
+      	
+	<LinearLayout 
+		android:id="@+id/Line2"
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"	
+	    android:orientation="horizontal" 
+
+	    >
+
+		<Button 
+			android:paddingTop="17sp"
+			android:drawableTop="@drawable/undo"
+		    android:id="@+id/ButtonGoUp" 
+		    android:layout_width="70px" 
+		    android:layout_height="70px"	
+		    android:layout_marginRight="20px"	    
+		    >
+		    </Button>
+		
+
+		<Button 
+		    android:id="@+id/ButtonGoHome" 
+		    android:layout_width="70px" 
+		    android:layout_height="70px"
+			android:paddingTop="17sp"		    
+			android:drawableTop="@drawable/home"	
+			android:layout_marginRight="20px"
+		    >
+		    
+		    </Button>
+
+
+		<Button 
+		    android:id="@+id/ButtonHistory" 
+		    android:layout_width="70px" 
+		    android:layout_height="70px"
+			android:paddingTop="17sp"		    
+			android:drawableTop="@drawable/scenario"	
+			android:layout_marginRight="160px"
+		    >
+		    
+		    </Button>
+
+		
+		<Button 
+		android:paddingTop="17sp"
+			android:drawableTop="@drawable/cancel"
+		    android:id="@+id/ButtonExit" 
+		    android:layout_width="70px" 
+		    android:layout_height="70px"
+		    
+		    
+		    		    >
+		    </Button>
+		    
+		    
+      
+  </LinearLayout>
+  
+  
+  
+      
+</LinearLayout> 
+  
+  
+  </FrameLayout>
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
