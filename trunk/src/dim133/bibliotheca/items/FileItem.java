@@ -19,6 +19,9 @@ public class FileItem extends BaseItem
     Date _date=null;
     
 	
+    
+    
+    
 	public Date getDate()
 	{
 		return _date;

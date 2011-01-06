@@ -3,6 +3,7 @@ package dim133.bibliotheca.views;
 
 
 import dim133.bibliotheca.R;
+import dim133.bibliotheca.Util;
 import dim133.bibliotheca.enums.ItemType;
 import dim133.bibliotheca.interfaces.IItem;
 import android.content.Context;
@@ -127,6 +128,7 @@ public class ItemView extends View
     final int PICSIZE = 32;
     final int XPOS2 = XPOS1+PICSIZE+ MARGIN;    
     final int TITLEMOVE = 0;
+    final int AUTHMOVE = 1;
   
     final float RECTROUND = 5;
     
@@ -145,11 +147,18 @@ public class ItemView extends View
     	} else
     	{	canvas.drawText( _item.getTitle(),XPOS2,_positions[0], _ptitle);
     	}
-    		
-    	if (_item.getAuthor().length()!=0)
-    		canvas.drawText( _item.getAuthor(),XPOS2,_positions[2], _pauth);    		
-
     	
+    	String a = _item.getAuthor();
+    	if (!Util.IsNullOrEmpty(a))
+    	{
+    		_pauth.getTextBounds( a,0, a.length(),tb);
+    		if (tb.width()+XPOS2>WIDTH)
+    		{	canvas.drawText( a,XPOS2,_positions[2]+AUTHMOVE, _pseries);
+    		} else
+    		{	canvas.drawText( a,XPOS2,_positions[2], _pauth);
+    		}
+    		
+    	}
     }
     
     
@@ -157,7 +166,6 @@ public class ItemView extends View
     { 
 
     	if (_item==null) return;
-    	
    	
     	String s = 	String.format("%d", _index);
     	RectF rect = new RectF(0, RECTOFFSET,HEIGHT - RECTOFFSET*2,HEIGHT- RECTOFFSET);
