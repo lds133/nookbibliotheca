@@ -39,13 +39,22 @@ public class FB2Item extends FileItem implements IFileItem
 	static final String MIME = "application/fb2";
 	
 	
-
+	String _translator=null; 
+	
 	
 	public FB2Item()
 	{
 		super();
 		_mimetype = MIME;
 	}
+
+	@Override
+	public String getAuthor()
+	{
+		return _author + (Util.IsNullOrEmpty(_translator) ? Util.EMPTYSTR : (  (Util.IsNullOrEmpty(_author) ? Util.EMPTYSTR : " " )  +  "(" + _translator + ")") );
+	}	
+	
+	
 	
 	public void FromPath(String path,Date date)
 	{
@@ -92,7 +101,6 @@ public class FB2Item extends FileItem implements IFileItem
 		
 		ZipFile zip = null;
 		_data.clear();
-
 		
 
 		try
@@ -200,6 +208,8 @@ public class FB2Item extends FileItem implements IFileItem
 			if (_data.containsKey(SERIES_INDEX)) 
 				_seriesindex = Util.FromDec(  _data.get(SERIES_INDEX));
 			
+			_translator 	= _data.containsKey(TAGTRANSLATOR) 	? _data.get(TAGTRANSLATOR) 	: 	Util.EMPTYSTR;
+			
 			
 			
 			
@@ -211,6 +221,7 @@ public class FB2Item extends FileItem implements IFileItem
 			_seriesname = _path;
 			_seriesindex = Util.NOTSET;
 			_type = ItemType.Broken;
+			_translator = Util.EMPTYSTR;			
 			
 			Log.d(Bibliotheca.LOGTAG,"Parse error '"+_path+"' "+e.getMessage() );
 			_isfilled = true;
