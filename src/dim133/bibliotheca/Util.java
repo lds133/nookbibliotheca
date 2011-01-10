@@ -12,6 +12,14 @@ public class Util
 		return (val!=null) ? val : NOTSET;		
 		
 	}
+
+	public static String ToDec(int N)
+	{
+		Integer val = N;
+		return val.toString();		
+		
+	}
+	
 	
 	public static Boolean IsNullOrEmpty(String s)
 	{
