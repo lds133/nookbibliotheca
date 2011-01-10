@@ -2,6 +2,7 @@ package dim133.bibliotheca.items;
 
 import java.util.Comparator;
 
+import dim133.bibliotheca.Util;
 import dim133.bibliotheca.interfaces.IItem;
 
 public class ItemComparator implements  Comparator<Object>
@@ -17,11 +18,14 @@ public class ItemComparator implements  Comparator<Object>
 			
 		int result;
 
-		result =  i1.getSeriesName().compareToIgnoreCase(i2.getSeriesName());
-		if (result!=0) return result;
-
-		if (i1.getSeriesIndex() != i2.getSeriesIndex())
-			return (i1.getSeriesIndex() > i2.getSeriesIndex()) ? 1 : -1;
+		if ( (!Util.IsNullOrEmpty(i1.getSeriesName())) && (!Util.IsNullOrEmpty(i2.getSeriesName())) )
+		{
+			result =  i1.getSeriesName().compareToIgnoreCase(i2.getSeriesName());
+			if (result!=0) return result;
+	
+			if (i1.getSeriesIndex() != i2.getSeriesIndex())
+				return (i1.getSeriesIndex() > i2.getSeriesIndex()) ? 1 : -1;
+		}		
 		
 		result =  i1.getAuthor().compareToIgnoreCase(i2.getAuthor());
 		if (result!=0) return result;		

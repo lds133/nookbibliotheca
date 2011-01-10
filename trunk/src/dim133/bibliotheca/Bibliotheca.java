@@ -4,9 +4,13 @@ package dim133.bibliotheca;
 
 
 
+
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 
 import dim133.bibliotheca.R;
 import dim133.bibliotheca.enums.ItemType;
@@ -30,6 +34,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.util.Properties;
+
 
 
 
@@ -47,9 +53,17 @@ public class Bibliotheca extends NookActivity
 	
     public static final String SDFOLDER = "/system/media/sdcard/"+MYLIBRARY;
     public static final String EXTERNAL_SDFOLDER = "/sdcard";
+    
+    public static final String SETTINGSFILE = "/system/media/sdcard/.settings/bibliotheca.settings";
+    //public static final String SETTINGSFILE = "/system/media/sdcard/bibliotheca/bset.txt";
 
-
-
+    public static final String P_PATH = "path";
+    public static final String P_NAME = "name";
+    public static final String P_ISHISTORY = "showhistory";
+    public static final int MAXPATHLINES = 10;
+    
+    public static final String YES = "yes";
+    public static final String NO = "no";
     
 	ItemView[] _items = new ItemView[ITEMSMAX];
 	
@@ -63,6 +77,7 @@ public class Bibliotheca extends NookActivity
 	FooterView _footer;
 
 	Button[] _buttons=null;
+	Properties _settings=null;
 	
 	
 	int _page;
@@ -136,14 +151,23 @@ public class Bibliotheca extends NookActivity
     {
     	if (_home==null)
     	{
-
     		MultiItemProvider p = new MultiItemProvider("Home", null);
         	_history = new HistoryItemProvider(HISTORYFILENAME,p,this);
         	_historyitem = new HistoryItem(_history);
-    		p.AddItem(_historyitem);
-    		p.AddProvider(new FileItemProvider("SDCard",SDFOLDER, p)); 
-    		p.AddProvider(new FileItemProvider("Ext SDCard",EXTERNAL_SDFOLDER, p));
+        	
+        	if (GetSettingsStr(P_ISHISTORY).compareToIgnoreCase(YES)==0)
+        		p.AddItem(_historyitem);
     		
+        	String name,path;
+    		for (int n=1;n<MAXPATHLINES;n++)
+    		{
+    			path = _settings.getProperty(P_PATH+Util.ToDec(n));
+    			if (Util.IsNullOrEmpty( path)) continue;
+    			
+    			name = _settings.getProperty(P_NAME+Util.ToDec(n));
+    			if (Util.IsNullOrEmpty(name)) name = "Path "+Util.ToDec(n);
+    			p.AddProvider(new FileItemProvider(name,path, p)); 
+    		}    		
 
     		_home=p;
     	}
@@ -194,6 +218,8 @@ public class Bibliotheca extends NookActivity
         
         _footer = new FooterView(this);
         _eink.addView(_footer);
+        
+        LoadSettings();
         
         SetInitialProvider();
         _page=0;
@@ -351,9 +377,65 @@ public class Bibliotheca extends NookActivity
 	}
     
  
+	
+	
+	
+	
+	void LoadSettings()
+	{
+		File f = new File(SETTINGSFILE); 
+	
+		if (!f.exists())
+		{	CreateSettingsFile(f);
+		} else
+		{	
+	    	try
+	    	{
+	    		_settings = new Properties();
+	    		_settings.load(new FileInputStream (f));
+	    		if(!_settings.containsKey(P_PATH+Util.ToDec(1))) 
+	    			_settings=null;
+
+	    	}
+	    	catch(Exception ex)
+	    	{
+	    		_settings = null;
+	    		Log.e(LOGTAG, "Exception while loading settings - ", ex);
+	    	}
+	    	if (_settings==null) CreateSettingsFile(f);
+		}		
+		
+	}
+	
+	
+    String GetSettingsStr(String key)
+    {
+    	if (_settings==null) LoadSettings();
+    	String result = _settings.getProperty(key); 
+    	return result==null ? Util.EMPTYSTR : result;
+    }
+    
     
 
+    void CreateSettingsFile(File f)
+    {
+    	_settings = new Properties();
+    	_settings.setProperty(P_ISHISTORY,YES);
+    	_settings.setProperty(P_PATH+Util.ToDec(1), SDFOLDER);
+    	_settings.setProperty(P_NAME+Util.ToDec(1), "SDCard");
+    	_settings.setProperty(P_PATH+Util.ToDec(2),EXTERNAL_SDFOLDER);
+    	_settings.setProperty(P_NAME+Util.ToDec(2), "Ext SDCard");    	
     	
+    	try
+    	{
+    		_settings.store(new FileOutputStream(f), null);
+    	}
+    	catch(Exception ex)
+    	{
+    		Log.e(LOGTAG, "Exception while saving settings - ", ex);
+    	}
+    	
+    }
     
     
     
